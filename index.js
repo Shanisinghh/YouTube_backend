@@ -12,10 +12,16 @@ dotenv.config();
 const app = express();
 
 app.use(cookieParser());
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://youtube-clone0114.netlify.app",
+      "https://youtube-clone-five-lac.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -23,9 +29,11 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT;
 mongoose
-  .connect("mongodb+srv://shanikushwaha8121:62ecisCbsSv1Lj7H@cluster0.lc2nups.mongodb.net/youtube-clone")
+  .connect(
+    "mongodb+srv://shanikushwaha8121:62ecisCbsSv1Lj7H@cluster0.lc2nups.mongodb.net/youtube-clone"
+  )
   .then(() => {
     console.log("connected to db");
     app.listen(PORT, () => {
@@ -36,8 +44,7 @@ mongoose
     console.log("error connecting to db", err);
   });
 
-
-  userRoute(app);
-  channelRoute(app)
-  commentRoutr(app)
-  vedioRoute(app)
+userRoute(app);
+channelRoute(app);
+commentRoutr(app);
+vedioRoute(app);
